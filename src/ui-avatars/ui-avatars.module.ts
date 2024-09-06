@@ -4,7 +4,7 @@ import { UiAvatarsSettingsType } from "./ui.avatars.config";
 
 @Module({})
 export class UiAvatarsModule {
-  static forRoot(options: UiAvatarsSettingsType & { isGlobal: boolean }) {
+  static forRoot(options: UiAvatarsSettingsType & { isGlobal?: boolean }) {
     const module: DynamicModule = {
       module: UiAvatarsModule,
       providers: [
@@ -26,6 +26,7 @@ export class UiAvatarsModule {
       ...args: any[]
     ) => Promise<UiAvatarsSettingsType> | UiAvatarsSettingsType;
     inject?: any[];
+    imports?: any[];
     isGlobal?: boolean;
   }): DynamicModule {
     const asyncOptionsProvider: Provider = {
@@ -44,6 +45,7 @@ export class UiAvatarsModule {
       module: UiAvatarsModule,
       providers: [asyncOptionsProvider, uiAvatarsServiceProvider],
       exports: [UiAvatarsService],
+      imports: options.imports || [],
     };
 
     if (options.isGlobal) {
