@@ -1,6 +1,9 @@
 import { Injectable } from "@nestjs/common";
-import * as uiavatars from "ui-avatars";
+import { UiAvatars } from "ui-avatars-api";
+import { UiAvatarsSettingsType } from "./ui.avatars.config";
 @Injectable()
-export class UiAvatarsService {
-  generateAvatar = uiavatars.generateAvatar;
+export class UiAvatarsService extends UiAvatars {
+  constructor(defaultOptions: UiAvatarsSettingsType) {
+    super({ ...defaultOptions });
+  }
 }
